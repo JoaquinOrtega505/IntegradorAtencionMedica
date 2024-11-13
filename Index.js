@@ -18,8 +18,9 @@ const turnosRoutes = require('./Routes/turnos');
 
 
 
-app.set('view engine', 'pug');
+;
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug')
 //app.set ('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -67,7 +68,11 @@ app.use('/', alergiasRoutes);
 app.use('/', hceRoutes);
 app.use ('/', turnosRoutes);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     app.use('/', hceRoutes);
-
-app.listen(3000, ()=>{
-    console.log('app en puerto 3000');
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
 });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+//app.listen(3000, ()=>{
+//    console.log('app en puerto 3000');
+//});

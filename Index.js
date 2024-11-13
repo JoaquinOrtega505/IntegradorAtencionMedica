@@ -14,6 +14,8 @@ const hceRoutes = require('./Routes/hce');
 const alergiasRoutes = require('./Routes/alergias');
 const turnosRoutes = require('./Routes/turnos');
 require('dotenv').config();
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
 
 
 
@@ -34,12 +36,16 @@ app.use(express.json()); // Para poder leer el cuerpo de las solicitudes POST co
 app.use(express.urlencoded({ extended: true }));
 //app.use(router);
 
-
+const redisClient = redis.createClient({
+    host: 'localhost', // Cambia esto según la configuración de tu Redis
+    port: 6379
+  });
 
 
 const secret = crypto.randomBytes(64).toString('hex');
 
 app.use(session({
+    store: new RedisStore({ client: redisClient }),
     secret: secret, 
     resave: false,
     saveUninitialized: true,

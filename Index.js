@@ -14,8 +14,8 @@ const hceRoutes = require('./Routes/hce');
 const alergiasRoutes = require('./Routes/alergias');
 const turnosRoutes = require('./Routes/turnos');
 require('dotenv').config();
-const RedisStore = require('connect-redis').default;
-const redis = require('redis');
+//const RedisStore = require('connect-redis').default;
+//const redis = require('redis');
 
 
 
@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 //app.use(router);
 
 
-const redisUrl = process.env.REDIS;
+/*const redisUrl = process.env.REDIS;
 const redisClient = redis.createClient({
     url: redisUrl
 });
@@ -47,12 +47,12 @@ redisClient.on('connect', () => {
 
 redisClient.on('error', (err) => {
     console.error('Error en la conexión a Redis', err);
-});
+});*/
 
 const secret = crypto.randomBytes(64).toString('hex');
 
 app.use(session({
-    store: new RedisStore({ client: redisClient }),
+    
     secret: secret, 
     resave: false,
     saveUninitialized: true,

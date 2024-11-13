@@ -18,10 +18,12 @@ const turnosRoutes = require('./Routes/turnos');
 
 
 
-;
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug')
-//app.set ('views', 'views');
+
+
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json()); // Para poder leer el cuerpo de las solicitudes POST como JSON

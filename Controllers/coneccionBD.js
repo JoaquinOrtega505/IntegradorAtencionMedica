@@ -3,11 +3,11 @@ const mysql = require('mysql2/promise'); //promise para async/await
 
 
 const connectionConfig = {
-    port: 3306,
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'tp_integrador_lab2'
+    //port: 3306,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 };
 
 // Crear la conexión a la base de datos

@@ -13,7 +13,7 @@ const atenciionMedicaRoutes = require('./Routes/atencionMedica');
 const hceRoutes = require('./Routes/hce');
 const alergiasRoutes = require('./Routes/alergias');
 const turnosRoutes = require('./Routes/turnos');
-
+require('dotenv').config();
 
 
 

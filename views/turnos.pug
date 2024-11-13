@@ -1,0 +1,67 @@
+extends layout
+
+block content
+    .container
+        h1.title Cargar Turno
+        div(class="form-container-atencion")
+
+            form(action="/turnos" method="post" id="form-turno")
+                
+                label(for="id_especialidad") Especialidad:
+                select.form-control(name="id_especialidad" id="id_especialidad" required)
+                    option(value="") Selecciona una especialidad
+                    each especialidad in especialidades
+                        option(value=especialidad.id_especialidad)= especialidad.nombre_especialidad
+
+                label(for='medico') Médico
+                select.form-control(id='medico' name='medico')
+                    option(value='') Selecciona un médico
+            
+                label(for='fecha') Fecha:
+                input#fecha.form-control(type='date' name='fecha' required)
+            
+                label(for='hora') Hora:
+                input#hora.form-control(type='time' name='hora' required)
+            
+                label(for='motivo') Motivo del Turno:
+                textarea#motivo.form-control(name='motivo' rows='3' required)
+            button.btn.btn-primary(type='submit') Guardar Turno
+
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const selectEspecialidad = document.getElementById('id_especialidad');
+
+            selectEspecialidad.addEventListener('change', async function() {
+                const idEspecialidad = selectEspecialidad.value;
+
+                if (idEspecialidad) {
+                    try {
+                        const response = await fetch(`/medicos/${idEspecialidad}`);
+                        const medicos = await response.json();
+                        
+                        console.log("Respuesta de médicos:", medicos); 
+                        // Si no hay médicos, mostrar un mensaje de error
+                        if (!medicos || medicos.length === 0) {
+                            alert('No se encontraron médicos para esta especialidad');
+                            return;
+                        }
+
+                        const selectMedico = document.getElementById('medico');
+                        selectMedico.innerHTML = '<option value="">Selecciona un médico</option>';
+
+                        medicos.forEach(medico => {
+                            const option = document.createElement('option');
+                            option.value = medico.id_medico;
+                            option.textContent = `${medico.nombre} ${medico.apellido}`;
+                            selectMedico.appendChild(option);
+                        });
+                    } catch (error) {
+                        console.error('Error al obtener los médicos:', error);
+                    }
+                } else {
+                    const selectMedico = document.getElementById('medico');
+                    selectMedico.innerHTML = '<option value="">Selecciona un médico</option>';
+                }
+            });
+        });

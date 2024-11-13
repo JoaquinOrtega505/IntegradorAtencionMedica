@@ -1,0 +1,25 @@
+extend layout 
+
+block content 
+
+  .container
+    h1.title Iniciar Sesión
+    
+    form(action='/login', method='POST', class='form-container')
+      label(for='username') Nombre de Usuario:
+      br
+      input(type='text', name='username', required)
+      br
+      label(for='password') Contraseña:
+      br
+      input(type='password', name='password', required)
+      br
+      button(type='submit', class='btn btn-primary') Iniciar Sesión
+
+    .usuarios
+      h2 Usuarios
+      p jzoidberg
+      p pFarnsworth
+      p aWong
+      p bRodriguez
+      p Clave: "0"

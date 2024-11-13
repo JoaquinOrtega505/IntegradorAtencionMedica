@@ -1,0 +1,164 @@
+extends layout
+
+block content
+    h1.title Atención Médica
+    h2.title Paciente: #{nombre} #{apellido}
+
+    div(class="form-container-atencion")
+        
+        form(action="/guardarAtencion" method="POST" class="atencion-form")
+            input(type="hidden" name="id_agenda" value=id_agenda)
+            input(type="hidden" name="id_paciente" value=id_paciente)
+            input(type="hidden" name="id_medico" value=id_medico)
+
+            // Evoluciones con texto enriquecido
+            label(for="evoluciones") Evoluciones:
+            #editor-container.form-control
+            input(type="hidden" name="evoluciones" id="hidden-evoluciones")
+
+            // Diagnósticos
+            label(for="diagnosticos") Diagnósticos:
+            input(type="text" name="diagnosticos" id="diagnosticos" class="form-control" required)
+
+            // Alergias
+            .form-group
+                label(for="nombreAlergia") Alergias:
+                select(name="nombreAlergia" id="nombreAlergia" class="form-control")
+                    option(value="") Selecciona una alergia
+                    each alergia in alergias
+                        option(value=alergia.id)= alergia.nombre
+            div.action-buttons
+                button(type="button" class="btn btn-secondary" onclick="openNuevaAlergia()") Nueva Alergia
+                button(type="button" class="btn btn-secondary" onclick="actualizarAlergias()") Actualizar Alergia
+
+            // Importancia de la Alergia
+            label(for="alergias_importancia") Importancia de la Alergia:
+            select(name="alergias_importancia" id="alergias_importancia" class="form-control")
+                option(value="") Selecciona la importancia
+                option(value="leve") Leve
+                option(value="normal") Normal
+                option(value="grave") Grave
+
+            // Fechas de Alergia
+            label(for="fecha_inicio") Fecha de Inicio:
+            input(type="date" name="fecha_inicio" class="form-control")
+
+            label(for="fecha_fin") Fecha de Fin:
+            input(type="date" name="fecha_fin" class="form-control")
+
+            // Antecedentes
+            label(for="antecedentes") Antecedentes:
+            input(type="text" name="antecedentes" id="antecedentes" class="form-control")
+
+            label(for="antecedentes_fecha_inicio") Fecha de Inicio:
+            input(type="date" name="antecedentes_fecha_inicio" class="form-control")
+
+            label(for="antecedentes_fecha_fin") Fecha de Fin:
+            input(type="date" name="antecedentes_fecha_fin" class="form-control")
+
+            // Hábitos
+            label(for="habitos") Hábitos:
+            input(type="text" name="habitos" id="habitos" class="form-control")
+
+            label(for="habitos_fecha_inicio") Fecha de Inicio:
+            input(type="date" name="habitos_fecha_inicio" class="form-control")
+
+            label(for="habitos_fecha_fin") Fecha de Fin:
+            input(type="date" name="habitos_fecha_fin" class="form-control")
+
+            // Medicamentos
+            label(for="medicamentos") Medicamentos:
+            input(type="text" name="medicamentos" id="medicamentos" class="form-control")
+
+            // Botón para guardar la atención
+            button(type="submit" class="btn btn-guardar") Guardar Atención
+            //button#guardarAtencionBtn(type="submit" class="btn btn-guardar") Guardar Atención
+
+        // Botones adicionales
+        div.action-buttons
+            a(href='/agenda' class='btn-agenda-verde ancho') Volver a Agenda
+            a(href=`/hce/${id_paciente}` class='btn-hce-amarillo ancho') Ver HCE
+            a(href='/logout' class='btn-cerrar-rojo ancho' onclick="event.preventDefault(); document.getElementById('logout-form').submit();") Cerrar Sesión
+            form#logout-form(action='/logout' method='POST' style='display: none;')
+       
+        div#mensajeExito(style="display:none;")
+            p Atención médica guardada exitosamente.
+        div#mensajeExito(style="display: none; color: green;") Atención médica guardada exitosamente.
+
+    // Incluyendo los archivos de Quill
+    link(rel='stylesheet' href='/vendor/quill/quill.snow.css')
+
+    script(src='/vendor/quill/quill.min.js')
+    
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            let nuevaAlergiaWindow;
+
+            // Función para abrir la ventana "Nueva Alergia"
+            window.openNuevaAlergia = function() {
+                nuevaAlergiaWindow = window.open('/alergias', 'Nueva Alergia', 'width=600,height=400');
+            };
+
+            // Función para actualizar la lista de alergias sin recargar la página
+            window.actualizarAlergias = async function() {
+                try {
+                    const response = await fetch('/api/alergias');
+                    const alergias = await response.json();
+
+                    const selectAlergias = document.getElementById('nombreAlergia');
+                    selectAlergias.innerHTML = '<option value="">Selecciona una alergia</option>';
+
+                    alergias.forEach(alergia => {
+                        const option = document.createElement('option');
+                        option.value = alergia.id;
+                        option.textContent = alergia.nombre;
+                        selectAlergias.appendChild(option);
+                    });
+
+                } catch (error) {
+                    console.error('Error al actualizar las alergias:', error);
+                }
+            };
+
+            const btnVerHCE = document.getElementById('btnVerHCE');
+
+            if (btnVerHCE) {
+                btnVerHCE.addEventListener('click', function () {
+                    
+                    const idPaciente = document.querySelector('input[name="id_paciente"]').value;
+
+                    
+                    if (idPaciente) {
+                        window.location.href = `/hce/${idPaciente}`;
+                    } else {
+                        alert('ID del paciente no encontrado');
+                    }
+                });
+            }
+        });
+
+
+
+            // Inicializar Quill
+            const quill = new Quill('#editor-container', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ header: [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        ['blockquote', 'code-block'],
+                        [{ list: 'ordered' }, { list: 'bullet' }],
+                        ['link'],
+                        ['clean']
+                    ]
+                },
+            });
+            
+            document.querySelector('form').onsubmit = function() {
+                document.getElementById('hidden-evoluciones').value = quill.root.innerHTML;
+            }
+            
+           
+            
+
+

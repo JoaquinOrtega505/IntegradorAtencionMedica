@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .form-container
+    h2 Nueva Alergia
+    form(action="/guardarAlergia" method="POST")
+      .form-group
+        label(for="nombreAlergia") Nombre de la alergia:
+        input(type="text" id="nombreAlergia" name="nombreAlergia" class="form-control" placeholder="Escribe el nombre de la alergia" required)
+      .form-group
+        button(type="submit" class="btn btn-primary") Guardar
+

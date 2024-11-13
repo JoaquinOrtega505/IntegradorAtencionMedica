@@ -1,0 +1,51 @@
+extends layout
+
+block content
+    h1.title Historia Clínica
+    
+
+    div(class="table-responsive")
+        table.table.table-striped.table-bordered
+            thead
+                tr
+                    th Fecha Atención
+                    th Médico
+                    th Evoluciones
+                    th Diagnósticos
+                    th Alergias
+                    th Importancia Alergia
+                    th Alergia Desde
+                    th Alergia Hasta
+                    th Antecedentes
+                    th Antecedentes Desde
+                    th Antecedentes Hasta
+                    th Hábitos
+                    th Hábitos Desde
+                    th Hábitos Hasta
+                    th Medicamentos
+            tbody
+                if historiaClinica.length
+                    each atencion in historiaClinica
+                        tr
+                            td= atencion.fecha_atencion.toLocaleDateString()
+                            td= atencion.medico_nombre + ' ' + atencion.medico_apellido
+                            td!= atencion.evoluciones
+                            td= atencion.diagnosticos
+                            td= atencion.alergias_nombre
+                            td= atencion.alergias_importancia
+                            td= atencion.alergias_fecha_desde ? atencion.alergias_fecha_desde.toLocaleDateString() : ''
+                            td= atencion.alergias_fecha_hasta ? atencion.alergias_fecha_hasta.toLocaleDateString() : ''
+                            td= atencion.antecedentes
+                            td= atencion.antecedentes_fecha_desde ? atencion.antecedentes_fecha_desde.toLocaleDateString() : ''
+                            td= atencion.antecedentes_fecha_hasta ? atencion.antecedentes_fecha_hasta.toLocaleDateString() : ''
+                            td= atencion.habitos
+                            td= atencion.habitos_fecha_desde ? atencion.habitos_fecha_desde.toLocaleDateString() : ''
+                            td= atencion.habitos_fecha_hasta ? atencion.habitos_fecha_hasta.toLocaleDateString() : ''
+                            td= atencion.medicamentos
+                else
+                    tr
+                        td(colspan="14") No hay registros en la historia clínica
+
+    // Botón para volver a la agenda
+    div.action-buttons
+        a(href='/agenda' class='btn-agenda-verde') Volver a Agenda

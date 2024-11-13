@@ -1,0 +1,215 @@
+body {
+  background-image: url('/Img/fondo.jpg');  /* Ruta hacia la imagen en la carpeta public */
+  background-size: cover;  /* Hace que la imagen ocupe todo el fondo */
+  background-repeat: no-repeat;  /* No repite la imagen */
+  background-position: center;  /* Centra la imagen en la página */
+  height: 100vh;  /* Asegura que el fondo ocupe el 100% de la altura de la ventana */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.block-content {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para el contenido */
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Altura completa de la ventana */
+}
+
+.form-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%; /* O ajustar según necesites */
+  max-width: 250px; /* Ancho máximo del formulario */
+  margin-top: 50px;
+}
+
+.form-input {
+  width: 100%; /* Ancho completo */
+  padding: 20px; /* Espaciado interno */
+  margin-bottom: 15px; /* Espaciado entre inputs */
+  border: 1px solid #ccc; /* Bordes de los inputs */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.btn {
+  background-color: #007bff; /* Color de fondo del botón */
+  color: white; /* Color del texto */
+  padding: 10px 15px; /* Espaciado interno del botón */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s; /* Transición suave para el color de fondo */
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilos para el h1 */
+.title {
+  font-size: 3rem;
+  color: #007bff; /* Color azul para resaltar el título */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#dateForm {
+display: flex;
+justify-content: flex-end; /* Alinear a la derecha */
+margin-bottom: 20px; /* Añadir margen inferior si es necesario */
+}
+
+#agendaTable td, 
+#agendaTable th {
+  text-align: center; /* Centrar el texto en celdas */
+}
+
+.logout-form {
+position: fixed; /* Fija el botón en la esquina */
+bottom: 20px; /* Margen desde el fondo */
+right: 20px; /* Margen desde la derecha */
+z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.atencion-form label {
+font-weight: bold;
+margin-top: 10px;
+}
+
+.atencion-form .form-control {
+margin-bottom: 15px;
+}
+
+/* Estilos para el formulario centrado en atencionMedica.pug */
+.form-container-atencion .form-turno {
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+  padding: 30px; /* Espaciado interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para darle profundidad */
+  width: 100%;
+  max-width: 600px; /* Ancho máximo del formulario */
+  margin: 50px auto; /* Centrado automático en la página */
+  display: flex; /* Usar flexbox para distribuir los elementos */
+  flex-direction: column; /* Asegura que los botones estén abajo del contenido */
+  gap: 10px; /* Espacio entre los botones */
+}
+
+.atencion-form label {
+font-weight: bold;
+margin-top: 10px;
+}
+
+.atencion-form .form-control {
+width: 100%;
+padding: 10px;
+margin-bottom: 15px;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+
+/* Estilos para los botones dentro de la sección de atención médica */
+.form-container-atencion .btn {
+  background-color: #007bff; /* Color de fondo del botón */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s; /* Transición suave para el color de fondo */
+  width: 100%; /* Ancho completo de los botones */
+}
+
+.form-container-atencion .btn:hover {
+background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+.action-buttons {
+  display: flex; /* Usa flexbox para alinear los botones */
+  gap: 10px; /* Espacio entre los botones */
+  width: 100%; /* Asegura que los botones ocupen todo el ancho disponible */
+}
+
+.action-buttons .btn {
+  width: 100%; /* Los botones ocupan el 100% del ancho disponible */
+}
+.ancho{
+  display: block;
+  width: 100%;
+
+}
+
+.btn-agenda-verde {
+  background-color: #28a745; /* Color verde */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-agenda-verde:hover {
+  background-color: #218838; /* Color más oscuro de verde */
+}
+
+.btn-cerrar-rojo {
+  background-color: #dc3545; /* Color rojo */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-cerrar-rojo:hover {
+  background-color: #c82333; /* Color más oscuro de rojo */
+}
+
+.btn-hce-amarillo{
+  background-color: #f7e709; /* Color rojo */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-hce-amarillo:hover {
+  background-color: #d3c50a; /* Color más oscuro de rojo */
+}
+
+
+.usuarios {
+  width: 300px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.usuarios h2 {
+  margin-bottom: 15px;
+}
+
+.usuarios p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
+}

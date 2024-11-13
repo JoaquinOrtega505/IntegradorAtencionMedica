@@ -52,7 +52,7 @@ app.use(session({
 
 
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
     res.render('index');  // Renderiza la vista index.pug
 });
 

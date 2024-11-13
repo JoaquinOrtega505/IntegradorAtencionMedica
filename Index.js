@@ -13,6 +13,8 @@ const atenciionMedicaRoutes = require('./Routes/atencionMedica');
 const hceRoutes = require('./Routes/hce');
 const alergiasRoutes = require('./Routes/alergias');
 const turnosRoutes = require('./Routes/turnos');
+const path = require('path');
+
 
 
 
@@ -54,13 +56,7 @@ app.get('/', (req, res) => {
     res.render('index');  // Renderiza la vista index.pug
 });
 
-/*app.get('/agenda', (req, res) => {
-  res.render('agenda'); // Renderiza la vista agenda.pug
-});*/
 
-/*app.get('/login', (req, res) => {
-    res.render('login'); 
-  });*/
 
 app.use('/', loginRoutes); // Usar las rutas de login
 app.use('/', agendaRoutes); // Usar las rutas de agenda

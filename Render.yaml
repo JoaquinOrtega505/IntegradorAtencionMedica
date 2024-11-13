@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: tp-integrador-lab2
+    env: node
+    buildCommand: npm install
+    startCommand: node index.js
+    rootDir: .  # Asegúrate de que apunte a la raíz del proyecto

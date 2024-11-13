@@ -14,8 +14,9 @@ const hceRoutes = require('./Routes/hce');
 const alergiasRoutes = require('./Routes/alergias');
 const turnosRoutes = require('./Routes/turnos');
 require('dotenv').config();
-const RedisStore = require('connect-redis')(session);
+const RedisStore = require('connect-redis').default(session);
 const redis = require('redis');
+
 
 
 

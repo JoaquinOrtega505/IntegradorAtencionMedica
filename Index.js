@@ -14,7 +14,7 @@ const hceRoutes = require('./Routes/hce');
 const alergiasRoutes = require('./Routes/alergias');
 const turnosRoutes = require('./Routes/turnos');
 require('dotenv').config();
-const RedisStore = require('connect-redis').default(session);
+const RedisStore = require('connect-redis').default;
 const redis = require('redis');
 
 
@@ -31,17 +31,23 @@ app.set('view engine', 'pug')
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json()); // Para poder leer el cuerpo de las solicitudes POST como JSON
-
-
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //app.use(router);
 
-const redisClient = redis.createClient({
-    host: 'localhost', // Cambia esto según la configuración de tu Redis
-    port: 6379
-  });
 
+const redisUrl = process.env.REDIS;
+const redisClient = redis.createClient({
+    url: redisUrl
+});
+
+redisClient.on('connect', () => {
+    console.log('Conexión a Redis exitosa');
+});
+
+redisClient.on('error', (err) => {
+    console.error('Error en la conexión a Redis', err);
+});
 
 const secret = crypto.randomBytes(64).toString('hex');
 
@@ -60,7 +66,7 @@ app.use(session({
 
 
 app.get('/index', (req, res) => {
-    res.render('index');  // Renderiza la vista index.pug
+    res.render('index'); 
 });
 
 
@@ -74,7 +80,6 @@ app.use('/', hceRoutes);
 app.use ('/', turnosRoutes);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     app.use('/', hceRoutes);
 const port = process.env.PORT || 3000;
-
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
